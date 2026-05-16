@@ -315,7 +315,7 @@ h2 {
 }
 
 .feedback-line {
-  stroke: var(--blue);
+  stroke: var(--gold);
 }
 
 .feedback-backdrop {
@@ -351,12 +351,6 @@ h2 {
 
 .base-enroll {
   opacity: 1;
-}
-
-.return-dot {
-  fill: var(--gold);
-  opacity: 0;
-  transition: opacity 400ms ease;
 }
 
 .fresh-dot {

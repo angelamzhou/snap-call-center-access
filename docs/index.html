@@ -8,8 +8,8 @@
       name="description"
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
-    <link rel="stylesheet" href="styles.css?v=20260516-6">
-    <script src="animation.js?v=20260516-6" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260516-7">
+    <script src="animation.js?v=20260516-7" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -100,12 +100,11 @@
                 .queue-animation .feedback-line { fill: none; stroke: #858b83; stroke-linecap: round; stroke-width: 2; }
                 .queue-animation .abandon-line { stroke: #9d5148; }
                 .queue-animation .return-line { stroke: #a87532; }
-                .queue-animation .feedback-line { stroke: #366b73; }
+                .queue-animation .feedback-line { stroke: #a87532; }
                 .queue-animation .feedback-backdrop { fill: #9d5148; opacity: 0.06; stroke: none; }
                 .queue-animation .pile-dot { fill: #9d5148; opacity: 0; }
                 .queue-animation .enroll-dot { fill: #54705d; opacity: 0; }
                 .queue-animation .base-enroll { opacity: 1; }
-                .queue-animation .return-dot { fill: #a87532; opacity: 0; }
                 .queue-animation .fresh-dot { fill: #366b73; opacity: 1; }
                 .queue-animation .moving-dot { opacity: 0.92; }
                 .queue-animation .moving-fresh { fill: #366b73; }
@@ -142,17 +141,17 @@
                 <animateMotion dur="4.8s" repeatCount="indefinite" path="M168 123 V151"></animateMotion>
               </circle>
               <circle class="moving-dot moving-enroll" r="4.5">
-                <animateMotion dur="5.4s" begin="1.2s" repeatCount="indefinite" path="M168 188 V285"></animateMotion>
+                <animateMotion dur="5.4s" begin="-1.2s" repeatCount="indefinite" path="M168 188 V285"></animateMotion>
               </circle>
               <circle class="moving-dot moving-abandon" r="4.5">
-                <animateMotion dur="5.8s" begin="0.8s" repeatCount="indefinite" path="M150 184 C122 200 93 213 64 226"></animateMotion>
+                <animateMotion dur="5.8s" begin="-0.8s" repeatCount="indefinite" path="M150 184 C122 200 93 213 64 226"></animateMotion>
               </circle>
             </g>
 
             <g class="animation-lane feedback-lane">
               <text class="lane-title" x="500" y="34">SNAP access</text>
               <text class="lane-subtitle" x="500" y="57">redials and reconnects return</text>
-              <rect class="feedback-backdrop redial-backdrop" x="484" y="120" width="126" height="138" rx="24"></rect>
+              <rect class="feedback-backdrop redial-backdrop" x="482" y="94" width="132" height="126" rx="24"></rect>
               <rect class="feedback-backdrop followup-backdrop" x="760" y="112" width="122" height="132" rx="24"></rect>
               <text class="node-label" x="635" y="88">Applicants/</text>
               <text class="node-label" x="635" y="108">Callers</text>
@@ -161,7 +160,7 @@
               <path class="abandon-line" d="M663 184 C630 199 594 213 556 229"></path>
               <text class="node-label" x="519" y="251">Abandon</text>
               <path class="return-line" d="M554 229 C502 176 540 87 626 96"></path>
-              <text class="node-label" x="496" y="154">Redials</text>
+              <text class="node-label" x="496" y="125">Redials</text>
               <path class="flow-line" d="M682 188 V218"></path>
               <text class="node-label" x="651" y="244">Connect</text>
               <path class="flow-line" d="M682 253 V285"></path>
@@ -180,23 +179,20 @@
               <circle class="pile-dot feedback-pile s3" cx="590" cy="284" r="5"></circle>
               <circle class="pile-dot feedback-pile s3" cx="552" cy="306" r="5"></circle>
               <circle class="pile-dot feedback-pile s3" cx="522" cy="276" r="5"></circle>
-              <circle class="return-dot s2" cx="602" cy="124" r="4"></circle>
-              <circle class="return-dot s3" cx="628" cy="115" r="4"></circle>
-              <circle class="return-dot s3" cx="735" cy="204" r="4"></circle>
               <circle class="moving-dot moving-fresh" r="4.5">
                 <animateMotion dur="4.6s" repeatCount="indefinite" path="M682 119 V151"></animateMotion>
               </circle>
               <circle class="moving-dot moving-enroll" r="4.5">
-                <animateMotion dur="5.2s" begin="0.7s" repeatCount="indefinite" path="M682 188 V285"></animateMotion>
+                <animateMotion dur="5.2s" begin="-0.7s" repeatCount="indefinite" path="M682 188 V285"></animateMotion>
               </circle>
               <circle class="moving-dot moving-abandon" r="4.5">
-                <animateMotion dur="4.4s" begin="0.4s" repeatCount="indefinite" path="M663 184 C630 199 594 213 556 229"></animateMotion>
+                <animateMotion dur="4.4s" begin="-0.4s" repeatCount="indefinite" path="M663 184 C630 199 594 213 556 229"></animateMotion>
               </circle>
               <circle class="moving-dot moving-return" r="4.5">
-                <animateMotion dur="5.6s" begin="0.9s" repeatCount="indefinite" path="M554 229 C502 176 540 87 626 96"></animateMotion>
+                <animateMotion dur="5.6s" begin="-0.9s" repeatCount="indefinite" path="M554 229 C502 176 540 87 626 96"></animateMotion>
               </circle>
               <circle class="moving-dot moving-return" r="4.5">
-                <animateMotion dur="6.2s" begin="1.6s" repeatCount="indefinite" path="M732 235 C822 230 822 95 704 96"></animateMotion>
+                <animateMotion dur="6.2s" begin="-1.6s" repeatCount="indefinite" path="M732 235 C822 230 822 95 704 96"></animateMotion>
               </circle>
             </g>
           </svg>
