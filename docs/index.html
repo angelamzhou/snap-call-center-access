@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Due Process on Hold</title>
+    <meta
+      name="description"
+      content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="index.html">Due Process on Hold</a>
+      <nav aria-label="Primary navigation">
+        <a href="assets/due-process-on-hold.pdf">Paper</a>
+        <a href="policy.html">Policy one-pager</a>
+      </nav>
+    </header>
+
+    <main id="main" class="sheet">
+      <section class="title-block">
+        <p class="eyebrow">SNAP access, queueing theory, and procedural due process</p>
+        <h1>Due Process on Hold</h1>
+        <p class="subtitle">A queueing framework for measuring and improving access to SNAP benefits</p>
+        <p class="authors">Andrew Daw, Chloe Pache, Angela Zhou</p>
+        <div class="link-row" aria-label="Project links">
+          <a href="assets/due-process-on-hold.pdf">Read the paper</a>
+          <a href="policy.html">Read the policy one-pager</a>
+        </div>
+      </section>
+
+      <section class="argument-grid" aria-label="Project summary">
+        <article>
+          <h2>The operational due process problem:</h2>
+          <p>
+            Tens of millions of Americans rely on SNAP and other social services, where call centers are the gateway to interviews, recertification, case updates, and application help.
+          </p>
+          <p>
+            When call centers are overloaded, legally required steps are practically impossible.
+          </p>
+          <p>
+            In Missouri, nearly half of SNAP denials were procedural - applicants couldn't complete application steps.
+          </p>
+        </article>
+
+        <article>
+          <h2>Why current call-center guidance is not enough:</h2>
+          <p>
+            Standard queueing and call-center guidance (Erlang-A) misses the key urgency of social service: callers need to get through, so they'll call back if they can't get through.
+          </p>
+        </article>
+      </section>
+
+      <section class="model-callout">
+        <h2>We develop a queueing model and performance evaluation framework that includes key SNAP and social service issues:</h2>
+        <ul>
+          <li>Callers who can't get through will call back for essential services.</li>
+          <li>Even successful callers may need to call back for follow-ups.</li>
+        </ul>
+      </section>
+
+      <figure class="model-figure">
+        <svg viewBox="0 0 1040 360" role="img" aria-labelledby="queue-title queue-desc">
+          <title id="queue-title">Simplified queueing model diagram</title>
+          <desc id="queue-desc">Two diagrams compare a simple call-center queue with a social-service queue that includes redials and follow-ups.</desc>
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L8,3 z"></path>
+            </marker>
+          </defs>
+
+          <g class="simple-flow">
+            <text x="120" y="55">Applicants/</text>
+            <text x="120" y="77">Callers</text>
+            <line x1="170" y1="92" x2="170" y2="130"></line>
+            <text x="146" y="160">Wait</text>
+            <line x1="150" y1="166" x2="70" y2="205"></line>
+            <text x="28" y="225">Abandon</text>
+            <line x1="170" y1="170" x2="170" y2="210"></line>
+            <text x="135" y="235">Connect</text>
+            <line x1="170" y1="246" x2="170" y2="284"></line>
+            <text x="146" y="310">Enroll</text>
+          </g>
+
+          <g class="service-flow">
+            <text x="640" y="38">Applicants/</text>
+            <text x="640" y="60">Callers</text>
+            <line x1="685" y1="76" x2="685" y2="120"></line>
+            <text x="660" y="150">Wait</text>
+            <line x1="665" y1="156" x2="565" y2="198"></line>
+            <text x="505" y="220">Abandon</text>
+            <text x="470" y="130" class="label">Redials</text>
+            <path d="M550 198 C500 135 525 48 625 50"></path>
+            <line x1="685" y1="160" x2="685" y2="210"></line>
+            <text x="650" y="236">Connect</text>
+            <line x1="685" y1="246" x2="685" y2="292"></line>
+            <text x="660" y="320">Enroll</text>
+            <path d="M760 234 C870 230 875 58 725 50"></path>
+            <text x="835" y="88" class="label">Follow-ups</text>
+          </g>
+        </svg>
+        <figcaption>Endogenous congestion: backlog &rarr; abandonment &rarr; redials &rarr; more backlog.</figcaption>
+      </figure>
+
+      <section class="bottom-grid">
+        <article>
+          <h2>What our model can measure</h2>
+          <ul>
+            <li>Mean number of waiting callers.</li>
+            <li>Mean waiting time.</li>
+            <li>Abandonment and procedural denial risk.</li>
+            <li>Congestion generated by redials.</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>What can agencies change in our model</h2>
+          <ul>
+            <li>Staffing levels.</li>
+            <li>Average handling time.</li>
+            <li>Follow-up and first-call resolution.</li>
+            <li>Recertification timing.</li>
+          </ul>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Due Process on Hold: A Queueing Framework for Improving Access in SNAP</p>
+      <div>
+        <a href="assets/due-process-on-hold.pdf">Paper PDF</a>
+        <a href="policy.html">Policy one-pager</a>
+      </div>
+    </footer>
+  </body>
+</html>

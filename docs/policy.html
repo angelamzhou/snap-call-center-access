@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Policy One-Pager | Due Process on Hold</title>
+    <meta
+      name="description"
+      content="Policy one-pager for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header compact">
+      <a class="brand" href="index.html">Due Process on Hold</a>
+      <nav aria-label="Primary navigation">
+        <a href="index.html">Project one-pager</a>
+        <a href="policy.html" aria-current="page">Policy one-pager</a>
+        <a href="assets/due-process-on-hold.pdf">Paper</a>
+      </nav>
+    </header>
+
+    <main id="main" class="page">
+      <section class="page-title">
+        <p class="eyebrow">Policy one-pager</p>
+        <h1>Improving access to SNAP interviews requires managing the queue, not only adding capacity.</h1>
+        <p>
+          Based on <em>Due Process on Hold: A Queueing Framework for Improving Access in SNAP</em> by Andrew Daw, Chloe Pache, and Angela Zhou.
+        </p>
+        <button class="button primary print-button" type="button" onclick="window.print()">Print one-pager</button>
+      </section>
+
+      <section class="one-pager">
+        <article>
+          <h2>The problem</h2>
+          <p>
+            SNAP applicants and participants often must complete interviews through call centers. When those systems are overloaded, eligible people can be denied for missing interviews rather than for the merits of their applications.
+          </p>
+          <p>
+            In <em>Holmes v. Knodell</em>, the court found that Missouri's call center failures denied applicants a meaningful opportunity to complete required interviews. The paper treats this as a system performance problem with due process consequences.
+          </p>
+        </article>
+
+        <article>
+          <h2>Why ordinary call-center metrics are not enough</h2>
+          <p>
+            SNAP callers often return after abandoning a call because benefits are urgent and the interview remains required. These redials can make backlog self-reinforcing: today's failed access attempts become tomorrow's call volume.
+          </p>
+          <p>
+            A model for public benefits access should therefore account for abandonment, redials, incomplete calls, recertification cycles, and the distinction between wait-time rates and absolute counts of people lost from the system.
+          </p>
+        </article>
+
+        <article>
+          <h2>What the queueing model estimates</h2>
+          <ul class="check-list">
+            <li>Mean number of waiting callers.</li>
+            <li>Mean wait time across all callers.</li>
+            <li>Average speed to answer among callers who connect.</li>
+            <li>Procedural denial lower bound from permanent abandonment.</li>
+            <li>Endogenous congestion from re-dials.</li>
+            <li>Endogenous congestion from recertification.</li>
+          </ul>
+        </article>
+
+        <article>
+          <h2>Policy and operations levers</h2>
+          <ul class="check-list">
+            <li>Increase staffing where hiring and onboarding are feasible.</li>
+            <li>Reduce average handling time without degrading accuracy or service quality.</li>
+            <li>Improve first-call resolution so fewer callers need follow-up contacts.</li>
+            <li>Evaluate recertification timing and waiver options that reduce avoidable repeat contacts.</li>
+            <li>Use dashboards for ex-ante scenario analysis before adopting expensive technology changes.</li>
+          </ul>
+        </article>
+
+        <article class="wide">
+          <h2>Key takeaway</h2>
+          <p>
+            The model does not say that one lever is universally best. It gives agencies, advocates, and researchers a way to compare bundles of staffing, process redesign, and policy changes against the same access metrics. That matters because a narrow focus on one metric can hide tradeoffs, and because systems that mediate public benefits access can fail at scale even without a single explicit exclusion rule.
+          </p>
+        </article>
+
+        <article class="wide">
+          <h2>Use this page with</h2>
+          <div class="resource-list">
+            <a href="index.html">Project one-pager</a>
+            <a href="assets/due-process-on-hold.pdf">Paper PDF</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Due Process on Hold</p>
+      <div>
+        <a href="index.html">Project one-pager</a>
+        <a href="assets/due-process-on-hold.pdf">Paper PDF</a>
+      </div>
+    </footer>
+  </body>
+</html>
