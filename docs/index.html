@@ -56,24 +56,26 @@
         </article>
       </section>
 
-      <section class="model-callout">
-        <h2>We develop a queueing model and performance evaluation framework that includes key SNAP and social service issues:</h2>
-        <ul>
-          <li>Callers who can't get through will call back for essential services.</li>
-          <li>Even successful callers may need to call back for follow-ups.</li>
-        </ul>
-      </section>
-
       <section class="congestion-demo" aria-labelledby="congestion-title">
-        <div class="demo-copy">
-          <p class="eyebrow">Same staffing, different dynamics</p>
-          <h2 id="congestion-title">Abandonment is not always an exit.</h2>
-          <p>
-            Erlang-A treats callers who abandon as leaving the system. In SNAP access, many callers still need the interview, so abandonment and follow-ups can become new demand on the same staffed queue.
-          </p>
-          <p class="demo-note">
-            Calibration cue from the paper: call center #2 has c=117.8 staff, AHT=52.0 min, observed arrivals 2931.5 calls/day; staffing-curve examples use (&theta;<sub>A</sub>, &theta;<sub>S</sub>, &theta;<sub>L</sub>) = (4, 3, 3).
-          </p>
+        <div class="demo-intro">
+          <div class="model-callout">
+            <h2>We develop a queueing model and performance evaluation framework that includes key SNAP and social service issues:</h2>
+            <ul>
+              <li>Callers who can't get through will call back for essential services.</li>
+              <li>Even successful callers may need to call back for follow-ups.</li>
+            </ul>
+          </div>
+
+          <div class="demo-copy">
+            <p class="eyebrow">Same staffing, different dynamics</p>
+            <h2 id="congestion-title">Abandonment is not always an exit.</h2>
+            <p>
+              Erlang-A treats callers who abandon as leaving the system. In SNAP access, many callers still need the interview, so abandonment and follow-ups can become new demand on the same staffed queue.
+            </p>
+            <p class="demo-note">
+              Calibration cue from the paper: call center #2 has c=117.8 staff, AHT=52.0 min, observed arrivals 2931.5 calls/day; staffing-curve examples use (&theta;<sub>A</sub>, &theta;<sub>S</sub>, &theta;<sub>L</sub>) = (4, 3, 3).
+            </p>
+          </div>
         </div>
 
         <div class="demo-panel" data-congestion-demo>
