@@ -9,6 +9,7 @@
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
     <link rel="stylesheet" href="styles.css">
+    <script src="animation.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -63,48 +64,121 @@
         </ul>
       </section>
 
-      <figure class="model-figure">
-        <svg viewBox="0 0 1040 360" role="img" aria-labelledby="queue-title queue-desc">
-          <title id="queue-title">Simplified queueing model diagram</title>
-          <desc id="queue-desc">Two diagrams compare a simple call-center queue with a social-service queue that includes redials and follow-ups.</desc>
-          <defs>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L0,6 L8,3 z"></path>
-            </marker>
-          </defs>
+      <section class="congestion-demo" aria-labelledby="congestion-title">
+        <div class="demo-copy">
+          <p class="eyebrow">Same staffing, different dynamics</p>
+          <h2 id="congestion-title">Abandonment is not always an exit.</h2>
+          <p>
+            Erlang-A treats callers who abandon as leaving the system. In SNAP access, many callers still need the interview, so abandonment and follow-ups can become new demand on the same staffed queue.
+          </p>
+          <p class="demo-note">
+            Calibration cue from the paper: call center #2 has c=117.8 staff, AHT=52.0 min, observed arrivals 2931.5 calls/day; staffing-curve examples use (&theta;<sub>A</sub>, &theta;<sub>S</sub>, &theta;<sub>L</sub>) = (4, 3, 3).
+          </p>
+        </div>
 
-          <g class="simple-flow">
-            <text x="120" y="55">Applicants/</text>
-            <text x="120" y="77">Callers</text>
-            <line x1="170" y1="92" x2="170" y2="130"></line>
-            <text x="146" y="160">Wait</text>
-            <line x1="150" y1="166" x2="70" y2="205"></line>
-            <text x="28" y="225">Abandon</text>
-            <line x1="170" y1="170" x2="170" y2="210"></line>
-            <text x="135" y="235">Connect</text>
-            <line x1="170" y1="246" x2="170" y2="284"></line>
-            <text x="146" y="310">Enroll</text>
-          </g>
+        <div class="demo-panel" data-congestion-demo>
+          <div class="demo-status">
+            <p data-demo-step>Same daily demand reaches the same staffed queue.</p>
+            <button type="button" data-demo-toggle aria-pressed="false">Pause</button>
+          </div>
 
-          <g class="service-flow">
-            <text x="640" y="38">Applicants/</text>
-            <text x="640" y="60">Callers</text>
-            <line x1="685" y1="76" x2="685" y2="120"></line>
-            <text x="660" y="150">Wait</text>
-            <line x1="665" y1="156" x2="565" y2="198"></line>
-            <text x="505" y="220">Abandon</text>
-            <text x="470" y="130" class="label">Redials</text>
-            <path d="M550 198 C500 135 525 48 625 50"></path>
-            <line x1="685" y1="160" x2="685" y2="210"></line>
-            <text x="650" y="236">Connect</text>
-            <line x1="685" y1="246" x2="685" y2="292"></line>
-            <text x="660" y="320">Enroll</text>
-            <path d="M760 234 C870 230 875 58 725 50"></path>
-            <text x="835" y="88" class="label">Follow-ups</text>
-          </g>
-        </svg>
-        <figcaption>Endogenous congestion: backlog &rarr; abandonment &rarr; redials &rarr; more backlog.</figcaption>
-      </figure>
+          <svg class="queue-animation" viewBox="0 0 920 360" role="img" aria-labelledby="animation-title animation-desc">
+            <title id="animation-title">Animated comparison of Erlang-A abandonment and redial feedback</title>
+            <desc id="animation-desc">Both lanes use the same staffing. In the Erlang-A lane, abandonment exits. In the SNAP-access lane, redials and follow-ups return to the same queue and raise effective load.</desc>
+            <defs>
+              <marker id="demo-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L8,3 z"></path>
+              </marker>
+            </defs>
+
+            <g class="animation-lane erlang-lane">
+              <text class="lane-title" x="24" y="34">Erlang-A</text>
+              <text class="lane-subtitle" x="24" y="57">abandonment exits</text>
+              <rect class="queue-box" x="142" y="118" width="78" height="94"></rect>
+              <line class="queue-stripe" x1="142" y1="148" x2="220" y2="148"></line>
+              <line class="queue-stripe" x1="142" y1="178" x2="220" y2="178"></line>
+              <circle class="server" cx="284" cy="165" r="30"></circle>
+              <path class="flow-line" d="M30 165 H142"></path>
+              <path class="flow-line" d="M220 165 H254"></path>
+              <path class="flow-line" d="M314 165 H388"></path>
+              <path class="abandon-line" d="M180 213 C162 248 116 264 62 270"></path>
+              <text class="node-label" x="148" y="106">wait</text>
+              <text class="node-label" x="264" y="106">staff</text>
+              <text class="node-label" x="338" y="150">served</text>
+              <text class="node-label" x="40" y="252">lost</text>
+
+              <circle class="dot dot-fresh" r="6">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M30 165 H254"></animateMotion>
+              </circle>
+              <circle class="dot dot-served" r="5">
+                <animateMotion dur="4s" begin="0.8s" repeatCount="indefinite" path="M220 165 H388"></animateMotion>
+              </circle>
+              <circle class="dot dot-lost" r="5">
+                <animateMotion dur="4.8s" begin="1.1s" repeatCount="indefinite" path="M180 213 C162 248 116 264 62 270"></animateMotion>
+              </circle>
+            </g>
+
+            <g class="animation-lane feedback-lane">
+              <text class="lane-title" x="500" y="34">SNAP access</text>
+              <text class="lane-subtitle" x="500" y="57">redials and reconnects return</text>
+              <rect class="load-halo" x="610" y="112" width="92" height="108"></rect>
+              <rect class="queue-box" x="617" y="122" width="78" height="94"></rect>
+              <line class="queue-stripe" x1="617" y1="152" x2="695" y2="152"></line>
+              <line class="queue-stripe" x1="617" y1="182" x2="695" y2="182"></line>
+              <circle class="server" cx="764" cy="169" r="30"></circle>
+              <path class="flow-line" d="M500 169 H617"></path>
+              <path class="flow-line" d="M695 169 H734"></path>
+              <path class="flow-line" d="M794 169 H878"></path>
+              <path class="abandon-line" d="M656 218 C612 258 540 258 530 200 C520 128 575 92 617 122"></path>
+              <path class="return-line" d="M792 198 C875 230 896 96 776 92 C710 90 676 100 654 122"></path>
+              <text class="node-label" x="624" y="110">wait</text>
+              <text class="node-label" x="744" y="110">staff</text>
+              <text class="node-label" x="812" y="150">served</text>
+              <text class="node-label" x="525" y="238">redial</text>
+              <text class="node-label" x="818" y="88">follow-up</text>
+
+              <circle class="dot dot-fresh" r="6">
+                <animateMotion dur="4s" repeatCount="indefinite" path="M500 169 H734"></animateMotion>
+              </circle>
+              <circle class="dot dot-lost" r="5">
+                <animateMotion dur="4.4s" begin="0.7s" repeatCount="indefinite" path="M656 218 C612 258 540 258 530 200 C520 128 575 92 617 122"></animateMotion>
+              </circle>
+              <circle class="dot dot-return" r="5">
+                <animateMotion dur="4.8s" begin="1.3s" repeatCount="indefinite" path="M792 198 C875 230 896 96 776 92 C710 90 676 100 654 122"></animateMotion>
+              </circle>
+              <circle class="dot dot-return" r="4">
+                <animateMotion dur="3.8s" begin="2.2s" repeatCount="indefinite" path="M656 218 C612 258 540 258 530 200 C520 128 575 92 617 122"></animateMotion>
+              </circle>
+            </g>
+          </svg>
+
+          <div class="demo-metrics" aria-live="polite">
+            <div>
+              <strong data-erlang-abandon>8</strong>
+              <span>Erlang-A total abandonment</span>
+            </div>
+            <div>
+              <strong data-feedback-abandon>8</strong>
+              <span>With redials total abandonment</span>
+            </div>
+            <div>
+              <strong data-feedback-return>0</strong>
+              <span>Redials + reconnects</span>
+            </div>
+          </div>
+
+          <div class="load-bars">
+            <div>
+              <span>Erlang-A effective load</span>
+              <div class="load-track"><i data-erlang-load style="width: 100%"></i></div>
+            </div>
+            <div>
+              <span>Feedback effective load</span>
+              <div class="load-track"><i data-feedback-load style="width: 100%"></i></div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section class="bottom-grid">
         <article>

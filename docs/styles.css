@@ -7,6 +7,8 @@
   --wash: #f5f5f2;
   --line: #d8d8d2;
   --accent: #9b2328;
+  --blue: #245f81;
+  --gold: #9b6b13;
 }
 
 * {
@@ -203,6 +205,215 @@ h2 {
   content: "- ";
 }
 
+.congestion-demo {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.68fr) minmax(420px, 1.32fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin: 3rem 0;
+  padding: 2rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.demo-copy p:not(.eyebrow) {
+  margin-top: 0.8rem;
+  max-width: 34rem;
+}
+
+.demo-note {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.demo-panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  padding: 1rem;
+}
+
+.demo-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.demo-status p {
+  font-weight: 900;
+}
+
+.demo-status button {
+  min-height: 32px;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.queue-animation {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.7rem;
+}
+
+.queue-animation text {
+  fill: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.lane-title {
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.lane-subtitle,
+.node-label {
+  fill: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.flow-line,
+.abandon-line,
+.return-line {
+  fill: none;
+  stroke: var(--quiet);
+  stroke-linecap: round;
+  stroke-width: 2;
+  marker-end: url("#demo-arrow");
+}
+
+.abandon-line {
+  stroke: var(--accent);
+}
+
+.return-line {
+  stroke: var(--gold);
+}
+
+.queue-animation marker path {
+  fill: var(--quiet);
+}
+
+.queue-box,
+.server {
+  fill: #ffffff;
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.queue-stripe {
+  stroke: var(--ink);
+  stroke-width: 2;
+}
+
+.load-halo {
+  fill: var(--accent);
+  opacity: 0.06;
+  stroke: none;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.demo-panel[data-stage="1"] .load-halo {
+  opacity: 0.1;
+  transform: scale(1.06);
+}
+
+.demo-panel[data-stage="2"] .load-halo {
+  opacity: 0.15;
+  transform: scale(1.12);
+}
+
+.demo-panel[data-stage="3"] .load-halo {
+  opacity: 0.2;
+  transform: scale(1.18);
+}
+
+.dot {
+  fill: var(--blue);
+}
+
+.dot-lost {
+  fill: var(--accent);
+}
+
+.dot-return {
+  fill: var(--gold);
+}
+
+.demo-panel.is-paused .dot {
+  display: none;
+}
+
+.demo-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.demo-metrics div {
+  min-width: 0;
+}
+
+.demo-metrics strong {
+  display: block;
+  color: var(--accent);
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  line-height: 1;
+}
+
+.demo-metrics span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.load-bars {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.95rem;
+}
+
+.load-bars span {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.load-track {
+  height: 12px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+}
+
+.load-track i {
+  display: block;
+  height: 100%;
+  background: var(--ink);
+  transition: width 300ms ease;
+}
+
+.load-bars > div:last-child .load-track i {
+  background: var(--accent);
+}
+
 .model-figure {
   margin: 1.75rem 0 3rem;
   overflow-x: auto;
@@ -391,10 +602,30 @@ figcaption {
   }
 
   .argument-grid,
+  .congestion-demo,
   .bottom-grid,
   .one-pager {
     grid-template-columns: 1fr;
     gap: 1.8rem;
+  }
+
+  .demo-panel {
+    padding: 0.8rem;
+  }
+
+  .demo-status {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .queue-animation {
+    min-width: 0;
+  }
+
+  .demo-metrics,
+  .load-bars {
+    grid-template-columns: 1fr;
   }
 
   .model-callout {
@@ -447,10 +678,20 @@ figcaption {
   }
 
   .one-pager,
+  .congestion-demo,
   .argument-grid,
   .bottom-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.45in;
+  }
+
+  .demo-status button,
+  .queue-animation {
+    display: none;
+  }
+
+  .congestion-demo {
+    break-inside: avoid;
   }
 
   .one-pager {
