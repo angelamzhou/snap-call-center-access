@@ -10,6 +10,7 @@
   --accent: #9d5148;
   --blue: #366b73;
   --gold: #a87532;
+  --success: #54705d;
 }
 
 * {
@@ -313,34 +314,39 @@ h2 {
   fill: var(--quiet);
 }
 
-.load-halo {
+.feedback-backdrop {
   fill: var(--accent);
-  opacity: 0.04;
+  opacity: 0.07;
   stroke: none;
-  transform-box: fill-box;
-  transform-origin: center;
-  transition: opacity 300ms ease, transform 300ms ease;
+  transition: opacity 300ms ease;
 }
 
-.demo-panel[data-stage="1"] .load-halo {
-  opacity: 0.08;
-  transform: scale(1.07);
+.demo-panel[data-stage="1"] .feedback-backdrop {
+  opacity: 0.09;
 }
 
-.demo-panel[data-stage="2"] .load-halo {
+.demo-panel[data-stage="2"] .feedback-backdrop {
   opacity: 0.12;
-  transform: scale(1.14);
 }
 
-.demo-panel[data-stage="3"] .load-halo {
-  opacity: 0.17;
-  transform: scale(1.22);
+.demo-panel[data-stage="3"] .feedback-backdrop {
+  opacity: 0.15;
 }
 
 .pile-dot {
   fill: var(--accent);
   opacity: 0;
   transition: opacity 400ms ease;
+}
+
+.enroll-dot {
+  fill: var(--success);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.base-enroll {
+  opacity: 1;
 }
 
 .return-dot {
@@ -359,6 +365,10 @@ h2 {
 
 .moving-fresh {
   fill: var(--blue);
+}
+
+.moving-enroll {
+  fill: var(--success);
 }
 
 .moving-abandon {
@@ -380,7 +390,7 @@ h2 {
 
 .demo-metrics {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 0.75rem;
   margin-top: 0.7rem;
   padding-top: 0.8rem;
@@ -394,8 +404,16 @@ h2 {
 .demo-metrics strong {
   display: block;
   color: var(--accent);
-  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  font-size: clamp(1.35rem, 3vw, 2rem);
   line-height: 1;
+}
+
+.demo-metrics .metric-enroll strong {
+  color: var(--success);
+}
+
+.demo-metrics .metric-return strong {
+  color: var(--gold);
 }
 
 .demo-metrics span {

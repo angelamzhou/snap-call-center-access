@@ -5,6 +5,8 @@
   const frames = [
     {
       step: "Same daily demand reaches the same staffed queue.",
+      erlangEnroll: 92,
+      feedbackEnroll: 92,
       erlangAbandon: 8,
       feedbackAbandon: 8,
       feedbackReturn: 0,
@@ -13,6 +15,8 @@
     },
     {
       step: "Some callers abandon before reaching an agent.",
+      erlangEnroll: 88,
+      feedbackEnroll: 84,
       erlangAbandon: 12,
       feedbackAbandon: 16,
       feedbackReturn: 7,
@@ -21,6 +25,8 @@
     },
     {
       step: "Redials re-enter tomorrow's queue.",
+      erlangEnroll: 84,
+      feedbackEnroll: 77,
       erlangAbandon: 16,
       feedbackAbandon: 23,
       feedbackReturn: 17,
@@ -29,6 +35,8 @@
     },
     {
       step: "The abandonment pile is larger once redials and follow-ups return.",
+      erlangEnroll: 84,
+      feedbackEnroll: 70,
       erlangAbandon: 16,
       feedbackAbandon: 30,
       feedbackReturn: 31,
@@ -40,6 +48,8 @@
   const els = {
     step: root.querySelector("[data-demo-step]"),
     toggle: root.querySelector("[data-demo-toggle]"),
+    erlangEnroll: root.querySelector("[data-erlang-enroll]"),
+    feedbackEnroll: root.querySelector("[data-feedback-enroll]"),
     erlangAbandon: root.querySelector("[data-erlang-abandon]"),
     feedbackAbandon: root.querySelector("[data-feedback-abandon]"),
     feedbackReturn: root.querySelector("[data-feedback-return]"),
@@ -57,6 +67,8 @@
     const frame = frames[index];
     root.dataset.stage = String(index);
     els.step.textContent = frame.step;
+    els.erlangEnroll.textContent = frame.erlangEnroll;
+    els.feedbackEnroll.textContent = frame.feedbackEnroll;
     els.erlangAbandon.textContent = frame.erlangAbandon;
     els.feedbackAbandon.textContent = frame.feedbackAbandon;
     els.feedbackReturn.textContent = frame.feedbackReturn;

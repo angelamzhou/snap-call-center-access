@@ -8,8 +8,8 @@
       name="description"
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
-    <link rel="stylesheet" href="styles.css?v=20260516-4">
-    <script src="animation.js?v=20260516-4" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260516-5">
+    <script src="animation.js?v=20260516-5" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -98,12 +98,15 @@
                 .queue-animation .abandon-line { stroke: #9d5148; }
                 .queue-animation .return-line { stroke: #a87532; }
                 .queue-animation .feedback-line { stroke: #366b73; }
-                .queue-animation .load-halo { fill: #9d5148; opacity: 0.08; stroke: none; }
+                .queue-animation .feedback-backdrop { fill: #9d5148; opacity: 0.07; stroke: none; }
                 .queue-animation .pile-dot { fill: #9d5148; opacity: 0; }
+                .queue-animation .enroll-dot { fill: #54705d; opacity: 0; }
+                .queue-animation .base-enroll { opacity: 1; }
                 .queue-animation .return-dot { fill: #a87532; opacity: 0; }
                 .queue-animation .fresh-dot { fill: #366b73; opacity: 1; }
                 .queue-animation .moving-dot { opacity: 0.92; }
                 .queue-animation .moving-fresh { fill: #366b73; }
+                .queue-animation .moving-enroll { fill: #54705d; }
                 .queue-animation .moving-abandon { fill: #9d5148; }
                 .queue-animation .moving-return { fill: #a87532; }
               </style>
@@ -126,6 +129,11 @@
               <path class="flow-line" d="M168 253 V285"></path>
               <text class="node-label" x="148" y="312">Enroll</text>
               <circle class="fresh-dot" cx="107" cy="150" r="5"></circle>
+              <circle class="enroll-dot base-enroll" cx="202" cy="286" r="4.5"></circle>
+              <circle class="enroll-dot s1" cx="216" cy="298" r="4.5"></circle>
+              <circle class="enroll-dot s1" cx="192" cy="302" r="4.5"></circle>
+              <circle class="enroll-dot s2" cx="207" cy="314" r="4.5"></circle>
+              <circle class="enroll-dot s3" cx="228" cy="284" r="4.5"></circle>
               <circle class="pile-dot erlang-pile s1" cx="56" cy="270" r="5"></circle>
               <circle class="pile-dot erlang-pile s2" cx="70" cy="282" r="5"></circle>
               <circle class="pile-dot erlang-pile s3" cx="46" cy="289" r="5"></circle>
@@ -133,7 +141,7 @@
               <circle class="moving-dot moving-fresh" r="4.5">
                 <animateMotion dur="4.8s" repeatCount="indefinite" path="M168 123 V151"></animateMotion>
               </circle>
-              <circle class="moving-dot moving-fresh" r="4.5">
+              <circle class="moving-dot moving-enroll" r="4.5">
                 <animateMotion dur="5.4s" begin="1.2s" repeatCount="indefinite" path="M168 188 V285"></animateMotion>
               </circle>
               <circle class="moving-dot moving-abandon" r="4.5">
@@ -144,7 +152,8 @@
             <g class="animation-lane feedback-lane">
               <text class="lane-title" x="500" y="34">SNAP access</text>
               <text class="lane-subtitle" x="500" y="57">redials and reconnects return</text>
-              <ellipse class="load-halo" cx="675" cy="168" rx="52" ry="70"></ellipse>
+              <rect class="feedback-backdrop redial-backdrop" x="492" y="82" width="174" height="168" rx="24"></rect>
+              <rect class="feedback-backdrop followup-backdrop" x="704" y="82" width="154" height="168" rx="24"></rect>
               <text class="node-label" x="635" y="88">Applicants/</text>
               <text class="node-label" x="635" y="108">Callers</text>
               <path class="flow-line" d="M682 119 V151"></path>
@@ -160,6 +169,10 @@
               <path class="feedback-line" d="M732 235 C822 230 822 95 704 96"></path>
               <text class="node-label" x="802" y="136">Follow-ups</text>
               <circle class="fresh-dot" cx="614" cy="149" r="5"></circle>
+              <circle class="enroll-dot base-enroll" cx="716" cy="286" r="4.5"></circle>
+              <circle class="enroll-dot s1" cx="730" cy="298" r="4.5"></circle>
+              <circle class="enroll-dot s1" cx="706" cy="302" r="4.5"></circle>
+              <circle class="enroll-dot s2" cx="721" cy="314" r="4.5"></circle>
               <circle class="pile-dot feedback-pile s1" cx="548" cy="274" r="5"></circle>
               <circle class="pile-dot feedback-pile s1" cx="562" cy="286" r="5"></circle>
               <circle class="pile-dot feedback-pile s2" cx="536" cy="292" r="5"></circle>
@@ -173,7 +186,7 @@
               <circle class="moving-dot moving-fresh" r="4.5">
                 <animateMotion dur="4.6s" repeatCount="indefinite" path="M682 119 V151"></animateMotion>
               </circle>
-              <circle class="moving-dot moving-fresh" r="4.5">
+              <circle class="moving-dot moving-enroll" r="4.5">
                 <animateMotion dur="5.2s" begin="0.7s" repeatCount="indefinite" path="M682 188 V285"></animateMotion>
               </circle>
               <circle class="moving-dot moving-abandon" r="4.5">
@@ -189,15 +202,23 @@
           </svg>
 
           <div class="demo-metrics" aria-live="polite">
+            <div class="metric-enroll">
+              <strong data-erlang-enroll>92</strong>
+              <span>Erlang-A able to enroll</span>
+            </div>
+            <div class="metric-enroll">
+              <strong data-feedback-enroll>92</strong>
+              <span>SNAP access able to enroll</span>
+            </div>
             <div>
               <strong data-erlang-abandon>8</strong>
               <span>Erlang-A total abandonment</span>
             </div>
-            <div>
+            <div class="metric-abandon">
               <strong data-feedback-abandon>8</strong>
               <span>With redials total abandonment</span>
             </div>
-            <div>
+            <div class="metric-return">
               <strong data-feedback-return>0</strong>
               <span>Redials + reconnects</span>
             </div>
