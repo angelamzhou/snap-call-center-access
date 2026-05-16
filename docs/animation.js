@@ -44,7 +44,8 @@
     feedbackAbandon: root.querySelector("[data-feedback-abandon]"),
     feedbackReturn: root.querySelector("[data-feedback-return]"),
     erlangLoad: root.querySelector("[data-erlang-load]"),
-    feedbackLoad: root.querySelector("[data-feedback-load]")
+    feedbackLoad: root.querySelector("[data-feedback-load]"),
+    svg: root.querySelector(".queue-animation")
   };
 
   let index = 0;
@@ -68,6 +69,13 @@
     root.classList.toggle("is-paused", paused);
     els.toggle.textContent = complete ? "Replay" : paused ? "Play" : "Pause";
     els.toggle.setAttribute("aria-pressed", String(paused));
+    if (els.svg && typeof els.svg.pauseAnimations === "function") {
+      if (paused) {
+        els.svg.pauseAnimations();
+      } else {
+        els.svg.unpauseAnimations();
+      }
+    }
   }
 
   function stopTimer() {
@@ -86,14 +94,14 @@
         render();
         if (index === frames.length - 1) {
           complete = true;
-          setPaused(true);
+          setPaused(false);
           stopTimer();
         }
         return;
       }
 
       complete = true;
-      setPaused(true);
+      setPaused(false);
       stopTimer();
     }, 2600);
   }
