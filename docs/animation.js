@@ -24,7 +24,7 @@
       feedbackLoad: 119
     },
     {
-      step: "Redials re-enter tomorrow's queue.",
+      step: "Redials and follow-ups recycle demand back into the queue.",
       erlangEnroll: 84,
       feedbackEnroll: 77,
       erlangAbandon: 16,
@@ -34,7 +34,7 @@
       feedbackLoad: 142
     },
     {
-      step: "The abandonment pile is larger once redials and follow-ups return.",
+      step: "Omitting endogenous congestion makes current staffing guidance too optimistic.",
       erlangEnroll: 84,
       feedbackEnroll: 70,
       erlangAbandon: 16,

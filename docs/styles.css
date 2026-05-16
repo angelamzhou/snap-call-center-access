@@ -263,6 +263,15 @@ h2 {
   cursor: pointer;
 }
 
+.demo-takeaway {
+  max-width: 840px;
+  margin-top: 0.75rem;
+  color: var(--ink);
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  font-weight: 900;
+  line-height: 1.18;
+}
+
 .queue-animation {
   display: block;
   width: 100%;
@@ -295,7 +304,6 @@ h2 {
   stroke: var(--quiet);
   stroke-linecap: round;
   stroke-width: 2;
-  marker-end: url("#demo-arrow");
 }
 
 .abandon-line {
@@ -310,27 +318,23 @@ h2 {
   stroke: var(--blue);
 }
 
-.queue-animation marker path {
-  fill: var(--quiet);
-}
-
 .feedback-backdrop {
   fill: var(--accent);
-  opacity: 0.07;
+  opacity: 0.06;
   stroke: none;
   transition: opacity 300ms ease;
 }
 
 .demo-panel[data-stage="1"] .feedback-backdrop {
-  opacity: 0.09;
+  opacity: 0.08;
 }
 
 .demo-panel[data-stage="2"] .feedback-backdrop {
-  opacity: 0.12;
+  opacity: 0.1;
 }
 
 .demo-panel[data-stage="3"] .feedback-backdrop {
-  opacity: 0.15;
+  opacity: 0.12;
 }
 
 .pile-dot {
@@ -386,6 +390,46 @@ h2 {
 .demo-panel[data-stage="3"] .s2,
 .demo-panel[data-stage="3"] .s3 {
   opacity: 1;
+}
+
+.demo-legend {
+  display: flex;
+  gap: 0.55rem 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.demo-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+}
+
+.demo-legend i {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.legend-blue {
+  background: var(--blue);
+}
+
+.legend-gold {
+  background: var(--gold);
+}
+
+.legend-red {
+  background: var(--accent);
+}
+
+.legend-green {
+  background: var(--success);
 }
 
 .demo-metrics {

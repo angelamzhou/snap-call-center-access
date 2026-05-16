@@ -8,8 +8,8 @@
       name="description"
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
-    <link rel="stylesheet" href="styles.css?v=20260516-5">
-    <script src="animation.js?v=20260516-5" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260516-6">
+    <script src="animation.js?v=20260516-6" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -81,6 +81,9 @@
             <p data-demo-step>Same daily demand reaches the same staffed queue.</p>
             <button type="button" data-demo-toggle aria-pressed="false">Pause</button>
           </div>
+          <p class="demo-takeaway">
+            Takeaway: current staffing guidance that omits endogenous congestion is too optimistic because it treats abandoned calls as gone, not recycled demand.
+          </p>
 
           <svg class="queue-animation" viewBox="0 0 920 360" role="img" aria-labelledby="animation-title animation-desc">
             <title id="animation-title">Animated comparison of Erlang-A abandonment and redial feedback</title>
@@ -94,11 +97,11 @@
                 .queue-animation .flow-line,
                 .queue-animation .abandon-line,
                 .queue-animation .return-line,
-                .queue-animation .feedback-line { fill: none; stroke: #858b83; stroke-linecap: round; stroke-width: 2; marker-end: url("#demo-arrow"); }
+                .queue-animation .feedback-line { fill: none; stroke: #858b83; stroke-linecap: round; stroke-width: 2; }
                 .queue-animation .abandon-line { stroke: #9d5148; }
                 .queue-animation .return-line { stroke: #a87532; }
                 .queue-animation .feedback-line { stroke: #366b73; }
-                .queue-animation .feedback-backdrop { fill: #9d5148; opacity: 0.07; stroke: none; }
+                .queue-animation .feedback-backdrop { fill: #9d5148; opacity: 0.06; stroke: none; }
                 .queue-animation .pile-dot { fill: #9d5148; opacity: 0; }
                 .queue-animation .enroll-dot { fill: #54705d; opacity: 0; }
                 .queue-animation .base-enroll { opacity: 1; }
@@ -110,9 +113,6 @@
                 .queue-animation .moving-abandon { fill: #9d5148; }
                 .queue-animation .moving-return { fill: #a87532; }
               </style>
-              <marker id="demo-arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
-                <path d="M0,0 L0,6 L8,3 z" fill="#858b83"></path>
-              </marker>
             </defs>
 
             <g class="animation-lane erlang-lane">
@@ -152,8 +152,8 @@
             <g class="animation-lane feedback-lane">
               <text class="lane-title" x="500" y="34">SNAP access</text>
               <text class="lane-subtitle" x="500" y="57">redials and reconnects return</text>
-              <rect class="feedback-backdrop redial-backdrop" x="492" y="82" width="174" height="168" rx="24"></rect>
-              <rect class="feedback-backdrop followup-backdrop" x="704" y="82" width="154" height="168" rx="24"></rect>
+              <rect class="feedback-backdrop redial-backdrop" x="484" y="120" width="126" height="138" rx="24"></rect>
+              <rect class="feedback-backdrop followup-backdrop" x="760" y="112" width="122" height="132" rx="24"></rect>
               <text class="node-label" x="635" y="88">Applicants/</text>
               <text class="node-label" x="635" y="108">Callers</text>
               <path class="flow-line" d="M682 119 V151"></path>
@@ -200,6 +200,13 @@
               </circle>
             </g>
           </svg>
+
+          <div class="demo-legend" aria-label="Animation legend">
+            <span><i class="legend-blue"></i>new demand</span>
+            <span><i class="legend-gold"></i>recycled redials/follow-ups</span>
+            <span><i class="legend-red"></i>abandonment</span>
+            <span><i class="legend-green"></i>able to enroll</span>
+          </div>
 
           <div class="demo-metrics" aria-live="polite">
             <div class="metric-enroll">
