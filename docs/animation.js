@@ -13,7 +13,7 @@
     },
     {
       step: "Some callers abandon before reaching an agent.",
-      erlangAbandon: 16,
+      erlangAbandon: 12,
       feedbackAbandon: 16,
       feedbackReturn: 7,
       erlangLoad: 100,
@@ -28,7 +28,7 @@
       feedbackLoad: 142
     },
     {
-      step: "Follow-ups add another loop on the same staffing.",
+      step: "The abandonment pile is larger once redials and follow-ups return.",
       erlangAbandon: 16,
       feedbackAbandon: 30,
       feedbackReturn: 31,
@@ -44,12 +44,13 @@
     feedbackAbandon: root.querySelector("[data-feedback-abandon]"),
     feedbackReturn: root.querySelector("[data-feedback-return]"),
     erlangLoad: root.querySelector("[data-erlang-load]"),
-    feedbackLoad: root.querySelector("[data-feedback-load]"),
-    svg: root.querySelector(".queue-animation")
+    feedbackLoad: root.querySelector("[data-feedback-load]")
   };
 
   let index = 0;
-  let paused = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let paused = false;
+  let complete = false;
+  let timer = null;
 
   function render() {
     const frame = frames[index];
@@ -65,27 +66,52 @@
   function setPaused(nextPaused) {
     paused = nextPaused;
     root.classList.toggle("is-paused", paused);
-    els.toggle.textContent = paused ? "Play" : "Pause";
+    els.toggle.textContent = complete ? "Replay" : paused ? "Play" : "Pause";
     els.toggle.setAttribute("aria-pressed", String(paused));
-    if (els.svg && typeof els.svg.pauseAnimations === "function") {
-      if (paused) {
-        els.svg.pauseAnimations();
-      } else {
-        els.svg.unpauseAnimations();
-      }
+  }
+
+  function stopTimer() {
+    if (timer) {
+      window.clearInterval(timer);
+      timer = null;
     }
   }
 
-  render();
-  setPaused(paused);
+  function startTimer() {
+    stopTimer();
+    timer = window.setInterval(function () {
+      if (paused) return;
+      if (index < frames.length - 1) {
+        index += 1;
+        render();
+        if (index === frames.length - 1) {
+          complete = true;
+          setPaused(true);
+          stopTimer();
+        }
+        return;
+      }
 
-  window.setInterval(function () {
-    if (paused) return;
-    index = (index + 1) % frames.length;
-    render();
-  }, 2200);
+      complete = true;
+      setPaused(true);
+      stopTimer();
+    }, 2600);
+  }
+
+  render();
+  setPaused(false);
+  startTimer();
 
   els.toggle.addEventListener("click", function () {
+    if (complete) {
+      index = 0;
+      complete = false;
+      render();
+      setPaused(false);
+      startTimer();
+      return;
+    }
+
     setPaused(!paused);
   });
 })();
