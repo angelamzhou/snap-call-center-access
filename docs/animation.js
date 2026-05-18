@@ -58,28 +58,105 @@
     svg: root.querySelector(".queue-animation")
   };
 
-  let index = 0;
-  let paused = false;
-  let complete = false;
-  let timer = null;
+  const numericKeys = [
+    "erlangEnroll",
+    "feedbackEnroll",
+    "erlangAbandon",
+    "feedbackAbandon",
+    "feedbackReturn",
+    "erlangLoad",
+    "feedbackLoad"
+  ];
+  const segmentDuration = 2600;
+  const cycleDuration = frames.length * segmentDuration;
 
-  function render() {
-    const frame = frames[index];
-    root.dataset.stage = String(index);
+  let paused = false;
+  let animationFrame = null;
+  let cycleStart = window.performance.now();
+  let pausedElapsed = 0;
+
+  function smoothstep(t) {
+    return t * t * (3 - 2 * t);
+  }
+
+  function interpolate(from, to, t) {
+    return from + (to - from) * t;
+  }
+
+  function setIntegerText(el, value) {
+    const next = String(Math.round(value));
+    if (el.textContent !== next) {
+      el.textContent = next;
+    }
+  }
+
+  function interpolatedFrame(elapsed) {
+    const progress = (elapsed % cycleDuration) / cycleDuration;
+    const scaled = progress * frames.length;
+    const fromIndex = Math.floor(scaled);
+    const toIndex = (fromIndex + 1) % frames.length;
+    const localProgress = smoothstep(scaled - fromIndex);
+    const from = frames[fromIndex];
+    const to = frames[toIndex];
+    const frame = { step: from.step };
+
+    numericKeys.forEach(function (key) {
+      frame[key] = interpolate(from[key], to[key], localProgress);
+    });
+
+    return {
+      frame,
+      stage: fromIndex
+    };
+  }
+
+  function renderFrame(frame, stage) {
+    root.dataset.stage = String(stage);
     els.step.textContent = frame.step;
-    els.erlangEnroll.textContent = frame.erlangEnroll;
-    els.feedbackEnroll.textContent = frame.feedbackEnroll;
-    els.erlangAbandon.textContent = frame.erlangAbandon;
-    els.feedbackAbandon.textContent = frame.feedbackAbandon;
-    els.feedbackReturn.textContent = frame.feedbackReturn;
+    setIntegerText(els.erlangEnroll, frame.erlangEnroll);
+    setIntegerText(els.feedbackEnroll, frame.feedbackEnroll);
+    setIntegerText(els.erlangAbandon, frame.erlangAbandon);
+    setIntegerText(els.feedbackAbandon, frame.feedbackAbandon);
+    setIntegerText(els.feedbackReturn, frame.feedbackReturn);
     els.erlangLoad.style.width = `${frame.erlangLoad / 1.8}%`;
     els.feedbackLoad.style.width = `${frame.feedbackLoad / 1.8}%`;
   }
 
+  function renderElapsed(elapsed) {
+    const state = interpolatedFrame(elapsed);
+    renderFrame(state.frame, state.stage);
+  }
+
+  function tick(now) {
+    renderElapsed(now - cycleStart);
+    animationFrame = window.requestAnimationFrame(tick);
+  }
+
+  function stopAnimationFrame() {
+    if (animationFrame) {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = null;
+    }
+  }
+
+  function startAnimationFrame() {
+    stopAnimationFrame();
+    animationFrame = window.requestAnimationFrame(tick);
+  }
+
   function setPaused(nextPaused) {
+    if (paused === nextPaused) return;
+    if (nextPaused) {
+      pausedElapsed = window.performance.now() - cycleStart;
+      stopAnimationFrame();
+    } else {
+      cycleStart = window.performance.now() - pausedElapsed;
+      startAnimationFrame();
+    }
+
     paused = nextPaused;
     root.classList.toggle("is-paused", paused);
-    els.toggle.textContent = complete ? "Replay" : paused ? "Play" : "Pause";
+    els.toggle.textContent = paused ? "Play" : "Pause";
     els.toggle.setAttribute("aria-pressed", String(paused));
     if (els.svg && typeof els.svg.pauseAnimations === "function") {
       if (paused) {
@@ -90,48 +167,113 @@
     }
   }
 
-  function stopTimer() {
-    if (timer) {
-      window.clearInterval(timer);
-      timer = null;
-    }
-  }
-
-  function startTimer() {
-    stopTimer();
-    timer = window.setInterval(function () {
-      if (paused) return;
-      if (index < frames.length - 1) {
-        index += 1;
-        render();
-        if (index === frames.length - 1) {
-          complete = true;
-          setPaused(false);
-          stopTimer();
-        }
-        return;
-      }
-
-      complete = true;
-      setPaused(false);
-      stopTimer();
-    }, 2600);
-  }
-
-  render();
-  setPaused(false);
-  startTimer();
+  renderElapsed(0);
+  startAnimationFrame();
 
   els.toggle.addEventListener("click", function () {
-    if (complete) {
-      index = 0;
-      complete = false;
-      render();
-      setPaused(false);
-      startTimer();
-      return;
-    }
-
     setPaused(!paused);
   });
+})();
+
+(function () {
+  const root = document.querySelector("[data-evaluation-panel]");
+  if (!root) return;
+
+  const states = {
+    staffing: {
+      parameter: "Capacity lever: staff c",
+      title: "More agents move callers out of wait.",
+      copy: "More staffed capacity directly increases the rate at which callers connect. The downstream effect is smaller abandonment piles and fewer redials feeding back into tomorrow's queue.",
+      enroll: "+14",
+      abandon: "-9",
+      recycle: "-11",
+      load: "-18%"
+    },
+    aht: {
+      parameter: "Service-time lever: lower AHT / higher service rate",
+      title: "Shorter handling time drains the queue faster.",
+      copy: "Lower average handling time directly frees agent capacity. Indirectly, shorter waits mean fewer callers abandon and fewer people have to redial to complete required steps.",
+      enroll: "+11",
+      abandon: "-7",
+      recycle: "-9",
+      load: "-15%"
+    },
+    resolution: {
+      parameter: "Return-demand lever: θS, θL, completion share",
+      title: "First-call resolution weakens the return loop.",
+      copy: "When more contacts resolve the case, fewer successful callers need follow-ups and fewer incomplete contacts recycle. That removes demand before it can re-enter the same staffed queue.",
+      enroll: "+9",
+      abandon: "-5",
+      recycle: "-16",
+      load: "-21%"
+    },
+    recertification: {
+      parameter: "Arrival-pressure lever: recertification timing",
+      title: "Smoother deadlines reduce avoidable peaks.",
+      copy: "Recertification timing and waiver choices can directly reduce peak arrival pressure. The indirect gain is that fewer peak-day failures become repeat calls later.",
+      enroll: "+7",
+      abandon: "-6",
+      recycle: "-10",
+      load: "-17%"
+    },
+    bundle: {
+      parameter: "Scenario lever: staffing + service design",
+      title: "Bundles can outperform one-off fixes.",
+      copy: "The evaluation framework compares bundles on the same outcomes. Staffing can raise capacity while process changes reduce the feedback that makes staffing guidance too optimistic.",
+      enroll: "+19",
+      abandon: "-13",
+      recycle: "-22",
+      load: "-30%"
+    }
+  };
+
+  const els = {
+    title: root.querySelector("[data-eval-title]"),
+    parameter: root.querySelector("[data-eval-parameter]"),
+    copy: root.querySelector("[data-eval-copy]"),
+    enroll: root.querySelector("[data-eval-enroll]"),
+    abandon: root.querySelector("[data-eval-abandon]"),
+    recycle: root.querySelector("[data-eval-recycle]"),
+    load: root.querySelector("[data-eval-load]")
+  };
+  const buttons = Array.from(root.querySelectorAll("[data-intervention]"));
+  const effectEls = Array.from(root.querySelectorAll("[data-effects]"));
+
+  function setActive(id) {
+    const state = states[id] || states.staffing;
+    root.dataset.active = id;
+    els.title.textContent = state.title;
+    els.parameter.textContent = state.parameter;
+    els.copy.textContent = state.copy;
+    els.enroll.textContent = state.enroll;
+    els.abandon.textContent = state.abandon;
+    els.recycle.textContent = state.recycle;
+    els.load.textContent = state.load;
+
+    buttons.forEach(function (button) {
+      const active = button.dataset.intervention === id;
+      button.classList.toggle("is-active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+
+    effectEls.forEach(function (el) {
+      const active = el.dataset.effects.split(" ").includes(id);
+      el.classList.toggle("is-active", active);
+    });
+  }
+
+  buttons.forEach(function (button) {
+    const id = button.dataset.intervention;
+    button.addEventListener("mouseenter", function () {
+      setActive(id);
+    });
+    button.addEventListener("focus", function () {
+      setActive(id);
+    });
+    button.addEventListener("click", function () {
+      setActive(id);
+    });
+  });
+
+  setActive("staffing");
 })();

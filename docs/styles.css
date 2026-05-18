@@ -521,6 +521,294 @@ h2 {
   background: var(--accent);
 }
 
+.evaluation-framework {
+  padding: 2rem 0 2.35rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.evaluation-head {
+  max-width: 940px;
+}
+
+.evaluation-head p:not(.eyebrow) {
+  margin-top: 0.7rem;
+  max-width: 760px;
+}
+
+.evaluation-layout {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.72fr) minmax(520px, 1.28fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: 1.45rem;
+}
+
+.intervention-list {
+  display: grid;
+  align-content: start;
+  gap: 0.55rem;
+}
+
+.intervention-card {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-left: 4px solid transparent;
+  padding: 0.75rem 0.8rem;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.intervention-card:hover,
+.intervention-card:focus-visible,
+.intervention-card.is-active {
+  border-left-color: var(--accent);
+  outline: none;
+}
+
+.intervention-card span,
+.intervention-card small {
+  display: block;
+}
+
+.intervention-card span {
+  font-size: 0.96rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.intervention-card small {
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.evaluation-panel {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  padding: 1rem;
+}
+
+.evaluation-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.evaluation-status h3 {
+  margin: 0.18rem 0 0;
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.mini-label {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.effect-key {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.effect-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.effect-key i {
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 999px;
+}
+
+.effect-direct {
+  background: var(--blue);
+}
+
+.effect-indirect {
+  background: var(--gold);
+}
+
+.evaluation-copy {
+  margin-top: 0.8rem;
+  max-width: 760px;
+  font-weight: 800;
+  line-height: 1.24;
+}
+
+.evaluation-figure {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: 0.75rem;
+}
+
+.evaluation-figure text {
+  fill: var(--muted);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.eval-zone {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.eval-zone-direct {
+  fill: var(--blue);
+}
+
+.eval-zone-indirect {
+  fill: var(--gold);
+}
+
+.eval-path {
+  fill: none;
+  stroke: var(--quiet);
+  stroke-linecap: round;
+  stroke-width: 2;
+}
+
+.effect-line {
+  opacity: 0;
+  stroke-width: 7;
+  transition: opacity 220ms ease;
+}
+
+.effect-line.effect-direct {
+  background: transparent;
+  stroke: var(--blue);
+}
+
+.effect-line.effect-indirect {
+  background: transparent;
+  stroke: var(--gold);
+}
+
+.node-dot {
+  fill: var(--surface);
+  stroke: var(--quiet);
+  stroke-width: 2;
+}
+
+.wait-node {
+  fill: var(--wash);
+}
+
+.connect-node,
+.enroll-node {
+  fill: #eef3ee;
+}
+
+.abandon-node {
+  fill: #f7ece9;
+}
+
+.abandon-piece {
+  fill: var(--accent);
+}
+
+.return-piece {
+  fill: var(--gold);
+}
+
+.enroll-piece {
+  fill: var(--success);
+}
+
+.abandon-piece,
+.return-piece {
+  opacity: 0.9;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.enroll-piece {
+  opacity: 0.4;
+  transition: opacity 220ms ease, transform 220ms ease;
+}
+
+.callout {
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.direct-callout {
+  fill: var(--blue) !important;
+}
+
+.indirect-callout {
+  fill: var(--gold) !important;
+}
+
+.eval-zone.is-active {
+  opacity: 0.1;
+}
+
+.effect-line.is-active,
+.callout.is-active {
+  opacity: 1;
+}
+
+.abandon-piece.is-active,
+.return-piece.is-active {
+  opacity: 0.28;
+  transform: translateY(-2px);
+}
+
+.enroll-piece.is-active {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+.evaluation-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-top: 0.65rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.evaluation-metrics div {
+  min-width: 0;
+}
+
+.evaluation-metrics strong {
+  display: block;
+  color: var(--blue);
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.evaluation-metrics span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
 .model-figure {
   margin: 1.75rem 0 3rem;
   overflow-x: auto;
@@ -710,6 +998,7 @@ figcaption {
 
   .argument-grid,
   .congestion-demo,
+  .evaluation-layout,
   .bottom-grid,
   .one-pager {
     grid-template-columns: 1fr;
@@ -731,8 +1020,26 @@ figcaption {
   }
 
   .demo-metrics,
-  .load-bars {
+  .load-bars,
+  .evaluation-metrics {
     grid-template-columns: 1fr;
+  }
+
+  .evaluation-status {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .effect-key {
+    justify-content: flex-start;
+  }
+
+  .evaluation-panel {
+    padding: 0.8rem;
+  }
+
+  .evaluation-figure {
+    min-width: 0;
   }
 
   .model-figure {
