@@ -299,6 +299,15 @@ h2 {
   line-height: 1.18;
 }
 
+.demo-measure-note {
+  max-width: 760px;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
 .queue-animation {
   display: block;
   width: 100%;

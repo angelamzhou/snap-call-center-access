@@ -8,8 +8,8 @@
       name="description"
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
-    <link rel="stylesheet" href="styles.css?v=20260516-8">
-    <script src="animation.js?v=20260518-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260518-2">
+    <script src="animation.js?v=20260518-2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -85,6 +85,9 @@
           </div>
           <p class="demo-takeaway">
             Takeaway: current staffing guidance that omits endogenous congestion is too optimistic because it treats abandoned calls as gone, not recycled demand.
+          </p>
+          <p class="demo-measure-note">
+            Displayed quantities are illustrative, time-averaged outcomes for the same normalized demand. The moving circles show flow, not instantaneous rates.
           </p>
 
           <svg class="queue-animation" viewBox="0 0 920 360" role="img" aria-labelledby="animation-title animation-desc">
@@ -209,33 +212,33 @@
           <div class="demo-metrics" aria-live="polite">
             <div class="metric-enroll">
               <strong data-erlang-enroll>92</strong>
-              <span>Erlang-A able to enroll</span>
+              <span>Erlang-A expected enrolled</span>
             </div>
             <div class="metric-enroll">
               <strong data-feedback-enroll>92</strong>
-              <span>SNAP access able to enroll</span>
+              <span>SNAP feedback expected enrolled</span>
             </div>
             <div>
               <strong data-erlang-abandon>8</strong>
-              <span>Erlang-A total abandonment</span>
+              <span>Erlang-A expected abandonment</span>
             </div>
             <div class="metric-abandon">
               <strong data-feedback-abandon>8</strong>
-              <span>With redials total abandonment</span>
+              <span>With redials expected abandonment</span>
             </div>
             <div class="metric-return">
               <strong data-feedback-return>0</strong>
-              <span>Redials + reconnects</span>
+              <span>Expected redials + follow-ups</span>
             </div>
           </div>
 
           <div class="load-bars">
             <div>
-              <span>Erlang-A effective load</span>
+              <span>Erlang-A mean effective load</span>
               <div class="load-track"><i data-erlang-load style="width: 100%"></i></div>
             </div>
             <div>
-              <span>Feedback effective load</span>
+              <span>Feedback mean effective load</span>
               <div class="load-track"><i data-feedback-load style="width: 100%"></i></div>
             </div>
           </div>

@@ -68,12 +68,14 @@
     "feedbackLoad"
   ];
   const segmentDuration = 2600;
-  const cycleDuration = frames.length * segmentDuration;
+  const totalDuration = (frames.length - 1) * segmentDuration;
 
   let paused = false;
-  let animationFrame = null;
+  let complete = false;
+  let timerId = null;
   let cycleStart = window.performance.now();
   let pausedElapsed = 0;
+  const tickDelay = 80;
 
   function smoothstep(t) {
     return t * t * (3 - 2 * t);
@@ -91,11 +93,11 @@
   }
 
   function interpolatedFrame(elapsed) {
-    const progress = (elapsed % cycleDuration) / cycleDuration;
-    const scaled = progress * frames.length;
-    const fromIndex = Math.floor(scaled);
-    const toIndex = (fromIndex + 1) % frames.length;
-    const localProgress = smoothstep(scaled - fromIndex);
+    const clampedElapsed = Math.min(elapsed, totalDuration);
+    const scaled = clampedElapsed / segmentDuration;
+    const fromIndex = Math.min(Math.floor(scaled), frames.length - 1);
+    const toIndex = Math.min(fromIndex + 1, frames.length - 1);
+    const localProgress = fromIndex === toIndex ? 1 : smoothstep(scaled - fromIndex);
     const from = frames[fromIndex];
     const to = frames[toIndex];
     const frame = { step: from.step };
@@ -127,31 +129,46 @@
     renderFrame(state.frame, state.stage);
   }
 
-  function tick(now) {
-    renderElapsed(now - cycleStart);
-    animationFrame = window.requestAnimationFrame(tick);
+  function tick() {
+    const elapsed = window.performance.now() - cycleStart;
+    renderElapsed(elapsed);
+    if (elapsed >= totalDuration) {
+      complete = true;
+      pausedElapsed = totalDuration;
+      stopTimer();
+      els.toggle.textContent = "Replay";
+      els.toggle.setAttribute("aria-pressed", "false");
+      return;
+    }
+    timerId = window.setTimeout(tick, tickDelay);
   }
 
-  function stopAnimationFrame() {
-    if (animationFrame) {
-      window.cancelAnimationFrame(animationFrame);
-      animationFrame = null;
+  function stopTimer() {
+    if (timerId) {
+      window.clearTimeout(timerId);
+      timerId = null;
     }
   }
 
-  function startAnimationFrame() {
-    stopAnimationFrame();
-    animationFrame = window.requestAnimationFrame(tick);
+  function startTimer() {
+    stopTimer();
+    els.toggle.textContent = "Pause";
+    els.toggle.setAttribute("aria-pressed", "false");
+    timerId = window.setTimeout(tick, tickDelay);
   }
 
   function setPaused(nextPaused) {
+    if (complete && !nextPaused) {
+      replay();
+      return;
+    }
     if (paused === nextPaused) return;
     if (nextPaused) {
       pausedElapsed = window.performance.now() - cycleStart;
-      stopAnimationFrame();
+      stopTimer();
     } else {
       cycleStart = window.performance.now() - pausedElapsed;
-      startAnimationFrame();
+      startTimer();
     }
 
     paused = nextPaused;
@@ -167,10 +184,27 @@
     }
   }
 
+  function replay() {
+    complete = false;
+    paused = false;
+    pausedElapsed = 0;
+    cycleStart = window.performance.now();
+    root.classList.remove("is-paused");
+    renderElapsed(0);
+    if (els.svg && typeof els.svg.unpauseAnimations === "function") {
+      els.svg.unpauseAnimations();
+    }
+    startTimer();
+  }
+
   renderElapsed(0);
-  startAnimationFrame();
+  startTimer();
 
   els.toggle.addEventListener("click", function () {
+    if (complete) {
+      replay();
+      return;
+    }
     setPaused(!paused);
   });
 })();
