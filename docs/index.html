@@ -8,7 +8,7 @@
       name="description"
       content="Landing page for Due Process on Hold: A Queueing Framework for Improving Access in SNAP."
     >
-    <link rel="stylesheet" href="styles.css?v=20260518-2">
+    <link rel="stylesheet" href="styles.css?v=20260518-3">
     <script src="animation.js?v=20260518-2" defer></script>
   </head>
   <body>
@@ -294,91 +294,94 @@
               More staffed capacity directly increases the rate at which callers connect. The downstream effect is smaller abandonment piles and fewer redials feeding back into tomorrow's queue.
             </p>
 
-            <svg class="evaluation-figure" viewBox="0 0 760 360" role="img" aria-labelledby="evaluation-figure-title evaluation-figure-desc">
+            <svg class="evaluation-figure" viewBox="0 0 760 340" role="img" aria-labelledby="evaluation-figure-title evaluation-figure-desc">
               <title id="evaluation-figure-title">Service-design intervention effects on the access queue</title>
-              <desc id="evaluation-figure-desc">Selecting an intervention highlights direct queue effects and indirect feedback effects such as reduced redials and follow-ups.</desc>
+              <desc id="evaluation-figure-desc">Selecting an intervention keeps the same access-queue structure and highlights only the direct and indirect deltas.</desc>
               <g class="eval-backdrops">
-                <rect class="eval-zone eval-zone-direct" data-effects="staffing aht bundle" x="210" y="72" width="238" height="190" rx="28"></rect>
-                <rect class="eval-zone eval-zone-indirect" data-effects="staffing aht resolution recertification bundle" x="34" y="112" width="178" height="184" rx="28"></rect>
-                <rect class="eval-zone eval-zone-indirect" data-effects="resolution recertification bundle" x="500" y="76" width="202" height="188" rx="28"></rect>
+                <rect class="eval-zone eval-zone-direct" data-effects="staffing aht bundle" x="312" y="118" width="136" height="122" rx="22"></rect>
+                <rect class="eval-zone eval-zone-direct" data-effects="resolution bundle" x="340" y="218" width="142" height="90" rx="22"></rect>
+                <rect class="eval-zone eval-zone-direct" data-effects="recertification bundle" x="286" y="54" width="188" height="64" rx="22"></rect>
+                <rect class="eval-zone eval-zone-indirect" data-effects="staffing aht recertification bundle" x="168" y="86" width="126" height="164" rx="22"></rect>
+                <rect class="eval-zone eval-zone-indirect" data-effects="resolution recertification bundle" x="488" y="92" width="142" height="136" rx="22"></rect>
               </g>
 
               <g class="eval-flow">
-                <path class="eval-path baseline" d="M118 150 C160 112 203 104 246 126"></path>
-                <path class="eval-path baseline" d="M284 136 H392"></path>
-                <path class="eval-path baseline" d="M430 136 C482 140 511 171 522 218"></path>
-                <path class="eval-path baseline" d="M264 158 C227 197 191 225 150 244"></path>
-                <path class="eval-path baseline" d="M146 244 C72 195 80 104 204 92"></path>
-                <path class="eval-path baseline" d="M524 230 C644 230 652 88 482 90"></path>
+                <path class="eval-path baseline" d="M380 82 V116"></path>
+                <path class="eval-path baseline" d="M380 150 V184"></path>
+                <path class="eval-path baseline" d="M380 218 V252"></path>
+                <path class="eval-path baseline" d="M362 146 C326 164 290 180 250 198"></path>
+                <path class="eval-path baseline" d="M248 198 C196 146 234 58 322 68"></path>
+                <path class="eval-path baseline" d="M430 210 C520 206 522 66 404 68"></path>
 
-                <path class="eval-path effect-line effect-direct" data-effects="staffing aht bundle" d="M284 136 H392"></path>
-                <path class="eval-path effect-line effect-direct" data-effects="staffing aht bundle" d="M430 136 C482 140 511 171 522 218"></path>
-                <path class="eval-path effect-line effect-direct" data-effects="resolution bundle" d="M430 136 C482 140 511 171 522 218"></path>
-                <path class="eval-path effect-line effect-direct" data-effects="recertification bundle" d="M118 150 C160 112 203 104 246 126"></path>
+                <path class="eval-path effect-line effect-direct" data-effects="staffing aht bundle" d="M380 150 V184"></path>
+                <path class="eval-path effect-line effect-direct" data-effects="staffing aht bundle" d="M380 218 V252"></path>
+                <path class="eval-path effect-line effect-direct" data-effects="resolution bundle" d="M380 218 V252"></path>
+                <path class="eval-path effect-line effect-direct" data-effects="recertification bundle" d="M304 74 C334 63 358 62 380 82"></path>
 
-                <path class="eval-path effect-line effect-indirect" data-effects="staffing aht resolution recertification bundle" d="M264 158 C227 197 191 225 150 244"></path>
-                <path class="eval-path effect-line effect-indirect" data-effects="staffing aht recertification bundle" d="M146 244 C72 195 80 104 204 92"></path>
-                <path class="eval-path effect-line effect-indirect" data-effects="resolution recertification bundle" d="M524 230 C644 230 652 88 482 90"></path>
+                <path class="eval-path effect-line effect-indirect" data-effects="staffing aht resolution recertification bundle" d="M362 146 C326 164 290 180 250 198"></path>
+                <path class="eval-path effect-line effect-indirect" data-effects="staffing aht recertification bundle" d="M248 198 C196 146 234 58 322 68"></path>
+                <path class="eval-path effect-line effect-indirect" data-effects="resolution recertification bundle" d="M430 210 C520 206 522 66 404 68"></path>
               </g>
 
               <g class="eval-nodes">
-                <circle class="node-dot" cx="104" cy="154" r="9"></circle>
-                <text x="48" y="134">Applicants/</text>
-                <text x="70" y="153">callers</text>
+                <text x="334" y="38">Applicants/</text>
+                <text x="346" y="58">Callers</text>
+                <circle class="node-dot demand-node" cx="380" cy="82" r="8"></circle>
 
-                <circle class="node-dot wait-node" cx="266" cy="136" r="12"></circle>
-                <text x="245" y="111">Wait</text>
+                <text x="360" y="142">Wait</text>
+                <circle class="node-dot wait-node" cx="380" cy="150" r="11"></circle>
 
-                <circle class="node-dot connect-node" cx="410" cy="136" r="12"></circle>
-                <text x="380" y="111">Connect</text>
+                <text x="348" y="210">Connect</text>
+                <circle class="node-dot connect-node" cx="380" cy="218" r="11"></circle>
 
-                <circle class="node-dot enroll-node" cx="526" cy="232" r="12"></circle>
-                <text x="502" y="267">Enroll</text>
+                <text x="362" y="314">Enroll</text>
+                <circle class="node-dot enroll-node" cx="380" cy="252" r="11"></circle>
 
-                <circle class="node-dot abandon-node" cx="144" cy="246" r="11"></circle>
-                <text x="76" y="275">Abandon</text>
+                <text x="206" y="224">Abandon</text>
+                <circle class="node-dot abandon-node" cx="250" cy="198" r="11"></circle>
 
-                <text x="78" y="95">redials</text>
-                <text x="606" y="134">follow-ups</text>
+                <text x="184" y="92">Redials</text>
+                <text x="526" y="126">Follow-ups</text>
               </g>
 
               <g class="eval-piles">
-                <circle class="abandon-piece" data-effects="staffing aht recertification bundle" cx="84" cy="306" r="5"></circle>
-                <circle class="abandon-piece" data-effects="staffing aht resolution bundle" cx="104" cy="320" r="5"></circle>
-                <circle class="abandon-piece" data-effects="staffing aht recertification bundle" cx="124" cy="304" r="5"></circle>
-                <circle class="abandon-piece" data-effects="staffing aht resolution recertification bundle" cx="143" cy="318" r="5"></circle>
-                <circle class="return-piece" data-effects="staffing aht resolution recertification bundle" cx="612" cy="236" r="5"></circle>
-                <circle class="return-piece" data-effects="resolution recertification bundle" cx="636" cy="210" r="5"></circle>
-                <circle class="enroll-piece" data-effects="staffing aht resolution bundle" cx="552" cy="288" r="5"></circle>
-                <circle class="enroll-piece" data-effects="staffing aht bundle" cx="574" cy="300" r="5"></circle>
-                <circle class="enroll-piece" data-effects="resolution bundle" cx="536" cy="305" r="5"></circle>
+                <circle class="abandon-piece" data-effects="staffing aht recertification bundle" cx="186" cy="272" r="5"></circle>
+                <circle class="abandon-piece" data-effects="staffing aht resolution bundle" cx="206" cy="286" r="5"></circle>
+                <circle class="abandon-piece" data-effects="staffing aht recertification bundle" cx="226" cy="270" r="5"></circle>
+                <circle class="abandon-piece" data-effects="staffing aht resolution recertification bundle" cx="244" cy="286" r="5"></circle>
+                <circle class="return-piece" data-effects="staffing aht resolution recertification bundle" cx="546" cy="222" r="5"></circle>
+                <circle class="return-piece" data-effects="resolution recertification bundle" cx="570" cy="204" r="5"></circle>
+                <circle class="return-piece" data-effects="resolution bundle" cx="594" cy="222" r="5"></circle>
+                <circle class="enroll-piece" data-effects="staffing aht resolution bundle" cx="410" cy="286" r="5"></circle>
+                <circle class="enroll-piece" data-effects="staffing aht bundle" cx="432" cy="298" r="5"></circle>
+                <circle class="enroll-piece" data-effects="resolution bundle" cx="392" cy="300" r="5"></circle>
               </g>
 
               <g class="eval-callouts">
-                <text class="callout direct-callout" data-effects="staffing aht bundle" x="300" y="190">direct capacity gain</text>
-                <text class="callout direct-callout" data-effects="resolution bundle" x="404" y="190">more completions</text>
-                <text class="callout direct-callout" data-effects="recertification bundle" x="120" y="64">lower peak demand</text>
-                <text class="callout indirect-callout" data-effects="staffing aht resolution recertification bundle" x="64" y="338">smaller abandonment pile</text>
-                <text class="callout indirect-callout" data-effects="resolution recertification bundle" x="554" y="58">less return demand</text>
+                <text class="callout direct-callout" data-effects="staffing aht bundle" x="408" y="176">capacity delta</text>
+                <text class="callout direct-callout" data-effects="resolution bundle" x="408" y="270">completion delta</text>
+                <text class="callout direct-callout" data-effects="recertification bundle" x="204" y="52">arrival-pressure delta</text>
+                <text class="callout indirect-callout" data-effects="staffing aht resolution recertification bundle" x="150" y="316">fewer abandonments</text>
+                <text class="callout indirect-callout" data-effects="staffing aht resolution recertification bundle" x="520" y="256">fewer returns</text>
               </g>
             </svg>
 
             <div class="evaluation-metrics" aria-live="polite">
               <div>
                 <strong data-eval-enroll>+14</strong>
-                <span>able to enroll</span>
+                <span>enrollment delta</span>
               </div>
               <div>
                 <strong data-eval-abandon>-9</strong>
-                <span>abandonments</span>
+                <span>abandonment delta</span>
               </div>
               <div>
                 <strong data-eval-recycle>-11</strong>
-                <span>redials/follow-ups</span>
+                <span>return-demand delta</span>
               </div>
               <div>
                 <strong data-eval-load>-18%</strong>
-                <span>feedback load</span>
+                <span>feedback-load delta</span>
               </div>
             </div>
           </div>
