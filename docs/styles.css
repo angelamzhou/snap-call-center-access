@@ -713,28 +713,8 @@ h2 {
   stroke: var(--gold);
 }
 
-.node-dot {
-  fill: var(--surface);
-  stroke: var(--quiet);
-  stroke-width: 2;
-}
-
 .demand-node {
   fill: var(--blue);
-  stroke: none;
-}
-
-.wait-node {
-  fill: var(--wash);
-}
-
-.connect-node,
-.enroll-node {
-  fill: #eef3ee;
-}
-
-.abandon-node {
-  fill: #f7ece9;
 }
 
 .abandon-piece {
